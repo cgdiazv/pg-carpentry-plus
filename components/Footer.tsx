@@ -59,15 +59,7 @@ export default function Footer() {
             <ul className="space-y-3 text-xs sm:text-sm text-white/80 font-medium">
               <li>
                 <Link
-                  href="/"
-                  className="hover:text-[#C5A262] transition-colors inline-block"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#services"
+                  href="/#services"
                   className="hover:text-[#C5A262] transition-colors inline-block"
                 >
                   Services
@@ -75,7 +67,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="#gallery"
+                  href="/#gallery"
                   className="hover:text-[#C5A262] transition-colors inline-block"
                 >
                   Gallery
@@ -83,7 +75,15 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="#contact"
+                  href="/capability-statement"
+                  className="hover:text-[#C5A262] transition-colors inline-block"
+                >
+                  Capability Statement
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/#contact"
                   className="hover:text-[#C5A262] transition-colors inline-block"
                 >
                   Contact

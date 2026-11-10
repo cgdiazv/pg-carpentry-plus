@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Menu, X, Phone } from "lucide-react";
@@ -10,16 +10,49 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState<"EN" | "ES">("EN");
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileMenuOpen(false);
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [mobileMenuOpen]);
 
   const navLinks = [
-    { name: "HOME", href: "/" },
-    { name: "SERVICES", href: "#services" },
-    { name: "GALLERY", href: "#gallery" },
-    { name: "CONTACT", href: "#contact" },
+    { name: "SERVICES", href: "/#services" },
+    { name: "GALLERY", href: "/#gallery" },
+    { name: "CAPABILITY STATEMENT", href: "/capability-statement" },
+    { name: "CONTACT", href: "/#contact" },
   ];
 
   return (
-    <header className="relative z-30 w-full">
+    <div className="relative z-50 h-[76px] w-full sm:h-[84px]">
+    <header
+      className={`w-full transition-colors duration-300 ${
+        isScrolled
+          ? "fixed left-0 right-0 top-0 z-50 bg-[#C5A262] shadow-lg"
+          : "relative z-30 bg-transparent"
+      }`}
+    >
       <div className="max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-12 py-5 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="relative z-10 flex items-center">
@@ -39,7 +72,11 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className="text-[13px] font-bold tracking-wider text-white/90 hover:text-white transition-colors duration-200"
+              className={`text-[13px] font-bold tracking-wider transition-colors duration-200 ${
+                isScrolled
+                  ? "text-[#181818] hover:text-black"
+                  : "text-white/90 hover:text-white"
+              }`}
             >
               {link.name}
             </Link>
@@ -50,7 +87,11 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-4">
           <Link
             href={`tel:${siteConfig.contact.phone.replace(/[^0-9+]/g, "")}`}
-            className="px-6 py-2 rounded-full border-2 border-white/80 text-white font-bold text-xs tracking-widest hover:border-[#C5A262] hover:text-[#C5A262] transition-colors duration-200"
+            className={`px-6 py-2 rounded-full border-2 font-bold text-xs tracking-widest transition-colors duration-200 ${
+              isScrolled
+                ? "border-[#181818]/80 text-[#181818] hover:border-white hover:text-white"
+                : "border-white/80 text-white hover:border-[#C5A262] hover:text-[#C5A262]"
+            }`}
           >
             CALL NOW
           </Link>
@@ -182,7 +223,11 @@ export default function Navbar() {
         <div className="flex items-center gap-3 lg:hidden">
           <Link
             href={`tel:${siteConfig.contact.phone.replace(/[^0-9+]/g, "")}`}
-            className="p-2 rounded-full border-2 border-white/60 text-white hover:border-[#C5A262] hover:text-[#C5A262] transition-colors duration-200"
+            className={`p-2 rounded-full border-2 transition-colors duration-200 ${
+              isScrolled
+                ? "border-[#181818]/60 text-[#181818] hover:border-white hover:text-white"
+                : "border-white/60 text-white hover:border-[#C5A262] hover:text-[#C5A262]"
+            }`}
             aria-label="Call Now"
           >
             <Phone className="w-4 h-4" />
@@ -190,48 +235,84 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-white hover:text-white/80 transition-colors"
-            aria-label="Toggle navigation menu"
+            className={`p-2 transition-colors ${
+              isScrolled
+                ? "text-[#181818] hover:text-black"
+                : "text-white hover:text-white/80"
+            }`}
+            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#161616]/95 backdrop-blur-md border-b border-white/10 px-6 py-6 transition-all">
-          <nav className="flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-bold tracking-wider text-white/90 hover:text-white py-1"
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-          <div className="pt-6 mt-4 border-t border-white/10 flex flex-col gap-3">
+      <button
+        type="button"
+        aria-label="Close navigation menu"
+        tabIndex={mobileMenuOpen ? 0 : -1}
+        aria-hidden={!mobileMenuOpen}
+        onClick={() => setMobileMenuOpen(false)}
+        className={`fixed inset-0 z-[60] bg-black/60 transition-opacity duration-300 motion-reduce:transition-none lg:hidden ${
+          mobileMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      />
+      <aside
+        id="mobile-navigation"
+        aria-label="Mobile navigation"
+        aria-hidden={!mobileMenuOpen}
+        inert={!mobileMenuOpen}
+        className={`fixed inset-y-0 left-0 z-[61] flex w-[min(85vw,360px)] flex-col overflow-y-auto border-r border-white/10 bg-[#181818] px-6 py-6 shadow-2xl transition-transform duration-300 ease-in-out motion-reduce:transition-none lg:hidden ${
+          mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="mb-10 flex items-center justify-between">
+          <span className="text-sm font-black uppercase tracking-widest text-[#C5A262]">
+            PG Carpentry Plus
+          </span>
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-label="Close navigation menu"
+            className="rounded-full p-2 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+        <nav className="flex flex-col gap-5">
+          {navLinks.map((link) => (
             <Link
-              href={`tel:${siteConfig.contact.phone.replace(/[^0-9+]/g, "")}`}
-              className="w-full text-center py-2.5 rounded-full border-2 border-white/80 text-white font-bold text-xs tracking-widest hover:border-[#C5A262] hover:text-[#C5A262] transition-colors duration-200"
+              key={link.name}
+              href={link.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-sm font-bold tracking-wider text-white/90 hover:text-white py-1"
             >
-              CALL NOW
+              {link.name}
             </Link>
-            <div className="flex items-center justify-between text-xs text-white/70 pt-2">
-              <span>Language:</span>
-              <button
-                onClick={() => setCurrentLang(currentLang === "EN" ? "ES" : "EN")}
-                className="font-bold text-white px-3 py-1 rounded bg-[#2a2a2a] border border-white/10"
-              >
-                {currentLang === "EN" ? "🇺🇸 English" : "🇲🇽 Español"}
-              </button>
-            </div>
+          ))}
+        </nav>
+        <div className="mt-8 flex flex-col gap-4 border-t border-white/10 pt-6">
+          <Link
+            href={`tel:${siteConfig.contact.phone.replace(/[^0-9+]/g, "")}`}
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full rounded-full border-2 border-white/80 py-2.5 text-center text-xs font-bold tracking-widest text-white transition-colors duration-200 hover:border-[#C5A262] hover:text-[#C5A262]"
+          >
+            CALL NOW
+          </Link>
+          <div className="flex items-center justify-between pt-2 text-xs text-white/70">
+            <span>Language:</span>
+            <button
+              onClick={() => setCurrentLang(currentLang === "EN" ? "ES" : "EN")}
+              className="rounded border border-white/10 bg-[#2a2a2a] px-3 py-1 font-bold text-white"
+            >
+              {currentLang === "EN" ? "🇺🇸 English" : "🇲🇽 Español"}
+            </button>
           </div>
         </div>
-      )}
+      </aside>
     </header>
+    </div>
   );
 }
