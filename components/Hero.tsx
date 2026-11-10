@@ -31,7 +31,7 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative w-full bg-[#1c1c1c] overflow-hidden text-white">
+    <section className="relative w-full bg-[#181818] overflow-hidden text-white">
       {/* Hero Upper Section with Background Image */}
       <div className="relative w-full min-h-[640px] sm:min-h-[700px] md:min-h-[760px] lg:min-h-[800px] flex flex-col justify-between">
         {/* Background Image with Dark Overlay */}
