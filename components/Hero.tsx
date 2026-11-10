@@ -6,21 +6,25 @@ export default function Hero() {
   const cards = [
     {
       title: "Coffered Ceilings & Beams",
+      hoverText: "BRINGING YOUR VISION TO LIFE",
       image: "/ceiling-beams-white.webp",
       alt: "Elegant living room with coffered ceiling beams and fireplace",
     },
     {
       title: "Geometric Feature Walls",
+      hoverText: "ARTISTRY IN THE DETAILS",
       image: "/wall-design.webp",
       alt: "Custom decorative wall molding with elegant entryway console",
     },
     {
       title: "Master Carpentry & Trim",
+      hoverText: "CUSTOM INTERIOR TRANSFORMATIONS",
       image: "/carpenter.webp",
       alt: "Professional carpenter installing custom wall molding with nail gun",
     },
     {
       title: "Custom Built-Ins & Cabinetry",
+      hoverText: "CRAFTMANSHIP WITHOUT BORDERS",
       image: "/desk-tan.webp",
       alt: "Handcrafted natural wood built-in desk and wall shelving unit",
     },
@@ -71,23 +75,27 @@ export default function Hero() {
       </div>
 
       {/* 4 Featured Project Cards (overlapping bottom of hero into the dark background) */}
-      <div className="relative z-20 -mt-16 sm:-mt-20 md:-mt-24 lg:-mt-28 pb-16 sm:pb-20 md:pb-24">
+      <div className="relative z-20 -mt-16 sm:-mt-20 md:-mt-24 lg:-mt-28 pb-10 sm:pb-14 md:pb-16">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-4">
             {cards.map((card, index) => (
               <div
                 key={index}
-                className="group relative aspect-[4/4.7] w-full overflow-hidden shadow-2xl bg-[#111111]"
+                className="group relative aspect-square w-full overflow-hidden shadow-2xl bg-[#111111] cursor-pointer"
               >
                 <Image
                   src={card.image}
                   alt={card.alt}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
+                  className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-110"
                 />
-                {/* Subtle dark frame overlay on hover */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                {/* Gold overlay and revealed text on hover */}
+                <div className="absolute inset-0 bg-[#C5A262]/85 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 text-center">
+                  <span className="text-white font-black text-sm sm:text-base md:text-[17px] tracking-wider uppercase leading-snug drop-shadow-md transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
+                    {card.hoverText}
+                  </span>
+                </div>
               </div>
             ))}
           </div>
