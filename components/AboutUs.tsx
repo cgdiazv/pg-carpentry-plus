@@ -63,7 +63,7 @@ export default function AboutUs({
             )}
 
             <Link
-              href="#quote"
+              href="/contact"
               className="inline-flex items-center justify-center px-8 sm:px-9 py-3.5 sm:py-4 rounded-full bg-white text-[#C5A262] hover:bg-neutral-100 hover:text-[#b18d4d] active:bg-neutral-200 font-bold text-xs sm:text-sm tracking-widest uppercase shadow-lg transition-all duration-200 transform hover:scale-[1.02]"
             >
               GET FREE QUOTE

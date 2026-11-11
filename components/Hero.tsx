@@ -65,7 +65,7 @@ export default function Hero() {
 
           <div className="mt-5 sm:mt-6 flex justify-center">
             <Link
-              href="#quote"
+              href="/contact"
               className="inline-flex items-center justify-center px-7 sm:px-9 py-2.5 sm:py-3 rounded-full bg-[#C5A262] hover:bg-[#b59253] active:bg-[#a68345] text-white font-bold text-xs tracking-widest uppercase shadow-xl transition-all duration-200 transform hover:scale-[1.02]"
             >
               GET FREE QUOTE

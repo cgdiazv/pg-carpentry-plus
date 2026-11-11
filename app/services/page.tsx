@@ -160,7 +160,7 @@ export default function ServicesPage() {
               </p>
             </div>
             <Link
-              href={`mailto:${siteConfig.contact.email}`}
+              href="/contact"
               className="inline-flex w-fit items-center gap-2 rounded-full bg-[#C5A262] px-6 py-3 text-sm font-bold text-[#181818] transition-colors hover:bg-[#d8b979]"
             >
               Discuss Your Project
