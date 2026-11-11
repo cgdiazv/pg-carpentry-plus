@@ -3,24 +3,30 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Check } from "lucide-react";
+import { useLanguage } from "./LanguageProvider";
 
 interface ProgressBarItem {
-  label: string;
+  englishLabel: string;
+  spanishLabel: string;
   percentage: number;
 }
 
 const skills: ProgressBarItem[] = [
   {
-    label: "SUCCESSFUL DELIVERY",
+    englishLabel: "SUCCESSFUL DELIVERY",
+    spanishLabel: "ENTREGA SATISFACTORIA",
     percentage: 98,
   },
   {
-    label: "CUSTOMER SATISFACTION",
+    englishLabel: "CUSTOMER SATISFACTION",
+    spanishLabel: "SATISFACCIÓN DEL CLIENTE",
     percentage: 100,
   },
 ];
 
 export default function WhyChooseUs() {
+  const { language } = useLanguage();
+  const isSpanish = language === "es";
   const [animate, setAnimate] = useState(false);
   const sectionRef = useRef<HTMLElement | null>(null);
 
@@ -64,7 +70,11 @@ export default function WhyChooseUs() {
           <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/5] max-h-[640px] overflow-hidden shadow-2xl bg-[#111111] group">
             <Image
               src="/built-in-mudroom-bench-dark-shiplap-wall.webp"
-              alt="Custom built-in mudroom bench with dark shiplap wall and wood accents"
+              alt={
+                isSpanish
+                  ? "Banca empotrada para recibidor con pared oscura revestida de madera"
+                  : "Custom built-in mudroom bench with dark shiplap wall and wood accents"
+              }
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
@@ -78,20 +88,19 @@ export default function WhyChooseUs() {
           <div className="flex flex-col justify-center">
             {/* Eyebrow */}
             <p className="text-xs sm:text-sm font-semibold tracking-wide text-[#C5A262] mb-2 sm:mb-3">
-              Our Benefits
+              {isSpanish ? "Nuestros Beneficios" : "Our Benefits"}
             </p>
 
             {/* Main Title */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-black uppercase tracking-tight text-white leading-[1.12] mb-5 sm:mb-6">
-              WHY CHOOSE US?
+              {isSpanish ? "¿POR QUÉ ELEGIRNOS?" : "WHY CHOOSE US?"}
             </h2>
 
             {/* Description */}
             <p className="text-xs sm:text-sm md:text-[14.5px] leading-relaxed text-white/75 font-medium mb-8 sm:mb-9 max-w-xl">
-              We combine years of hands-on expertise with a passion for architectural precision and
-              uncompromising quality. From initial concept to the final flawless detail, our dedicated
-              team delivers bespoke carpentry solutions designed to add lasting value, functionality, and
-              elegance to every room in your home.
+              {isSpanish
+                ? "Combinamos años de experiencia práctica con pasión por la precisión arquitectónica y una calidad inigualable. Desde la idea inicial hasta el último detalle, nuestro equipo ofrece soluciones de carpintería a medida que aportan valor, funcionalidad y elegancia duraderos a cada espacio."
+                : "We combine years of hands-on expertise with a passion for architectural precision and uncompromising quality. From initial concept to the final flawless detail, our dedicated team delivers bespoke carpentry solutions designed to add lasting value, functionality, and elegance to every room in your home."}
             </p>
 
             {/* Feature Badges */}
@@ -100,14 +109,14 @@ export default function WhyChooseUs() {
                 <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#C5A262] text-black">
                   <Check className="w-3.5 h-3.5 stroke-[3] text-black" />
                 </span>
-                <span>Unmatched Craftsmanship</span>
+                <span>{isSpanish ? "Artesanía Inigualable" : "Unmatched Craftsmanship"}</span>
               </div>
 
               <div className="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-[#222222] border border-white/10 text-white text-xs sm:text-sm font-bold tracking-wide shadow-md">
                 <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#C5A262] text-black">
                   <Check className="w-3.5 h-3.5 stroke-[3] text-black" />
                 </span>
-                <span>Bilingual Service</span>
+                <span>{isSpanish ? "Servicio Bilingüe" : "Bilingual Service"}</span>
               </div>
             </div>
 
@@ -116,7 +125,7 @@ export default function WhyChooseUs() {
               {skills.map((item, index) => (
                 <div key={index} className="space-y-2">
                   <div className="text-xs sm:text-sm font-black tracking-wider uppercase text-white">
-                    {item.label}
+                    {isSpanish ? item.spanishLabel : item.englishLabel}
                   </div>
 
                   {/* Bar Track */}

@@ -3,6 +3,8 @@ import Image from "next/image";
 import { Phone } from "lucide-react";
 import ContactForm from "./ContactForm";
 import Footer from "@/components/Footer";
+import LocalizedImage from "@/components/LocalizedImage";
+import LocalizedText from "@/components/LocalizedText";
 import Navbar from "@/components/Navbar";
 import { siteConfig } from "@/src/config/site";
 
@@ -30,14 +32,16 @@ export default function ContactPage() {
         <div className="mx-auto flex w-full max-w-[1400px] flex-1 flex-col items-center justify-center px-4 pb-12 pt-8 text-center sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-[#C5A262] sm:text-sm">
-              Have A Question?
+              <LocalizedText english="Have A Question?" spanish="¿Tiene Alguna Pregunta?" />
             </p>
             <h1 className="text-4xl font-black uppercase tracking-tight sm:text-6xl lg:text-7xl">
-              Contact Us
+              <LocalizedText english="Contact Us" spanish="Contáctenos" />
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/85 sm:text-base">
-              Let&apos;s talk about custom trim, accent walls, or your next home
-              project.
+              <LocalizedText
+                english="Let's talk about custom trim, accent walls, or your next home project."
+                spanish="Hablemos sobre molduras a medida, paredes decorativas o su próximo proyecto para el hogar."
+              />
             </p>
           </div>
         </div>
@@ -49,9 +53,10 @@ export default function ContactPage() {
       >
         <section>
           <div className="relative mb-8 aspect-[2.1/1] w-full overflow-hidden sm:mb-10">
-            <Image
+            <LocalizedImage
               src="/blog-03.jpg"
-              alt="Modern custom home with distinctive exterior woodwork"
+              englishAlt="Modern custom home with distinctive exterior woodwork"
+              spanishAlt="Casa moderna con carpintería exterior distintiva"
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 40vw"
@@ -60,8 +65,10 @@ export default function ContactPage() {
           </div>
 
           <p className="max-w-md text-sm leading-relaxed text-white/80">
-            Feel free to reach out via phone with any questions about custom
-            trim, accent walls, or your next home project.
+            <LocalizedText
+              english="Feel free to reach out via phone with any questions about custom trim, accent walls, or your next home project."
+              spanish="Llámenos si tiene preguntas sobre molduras a medida, paredes decorativas o su próximo proyecto para el hogar."
+            />
           </p>
 
           <a
@@ -69,12 +76,12 @@ export default function ContactPage() {
             className="mt-6 inline-flex min-w-40 items-center justify-center gap-2 rounded-full bg-[#C5A262] px-7 py-3 text-sm font-bold uppercase text-white transition-colors hover:bg-[#b59253]"
           >
             <Phone className="h-4 w-4" aria-hidden="true" />
-            Call Now
+            <LocalizedText english="Call Now" spanish="Llamar Ahora" />
           </a>
 
           <div className="mt-10">
             <h2 className="text-lg font-black uppercase tracking-wide">
-              Contact Details
+              <LocalizedText english="Contact Details" spanish="Datos de Contacto" />
             </h2>
             <ul className="mt-3 space-y-2 text-sm text-white/85">
               <li>
@@ -90,7 +97,10 @@ export default function ContactPage() {
                   className="transition-colors hover:text-[#C5A262]"
                   href="tel:9722513979"
                 >
-                  +1 972 251 3979 · English
+                  <LocalizedText
+                    english="+1 972 251 3979 · English"
+                    spanish="+1 972 251 3979 · Inglés"
+                  />
                 </a>
               </li>
               <li>
@@ -98,7 +108,10 @@ export default function ContactPage() {
                   className="transition-colors hover:text-[#C5A262]"
                   href="tel:6823304080"
                 >
-                  +1 682 330 4080 · Spanish
+                  <LocalizedText
+                    english="+1 682 330 4080 · Spanish"
+                    spanish="+1 682 330 4080 · Español"
+                  />
                 </a>
               </li>
             </ul>
@@ -106,26 +119,47 @@ export default function ContactPage() {
 
           <div className="mt-9">
             <h2 className="text-lg font-black uppercase tracking-wide">
-              Working Hours
+              <LocalizedText english="Working Hours" spanish="Horario" />
             </h2>
             <ul className="mt-3 space-y-2 text-sm text-white/85">
-              <li>Mon-Fri: 9 AM – 6 PM</li>
-              <li>Saturday: 9 AM – 4 PM</li>
-              <li>Sunday: Closed</li>
+              <li>
+                <LocalizedText
+                  english="Mon-Fri: 9 AM – 6 PM"
+                  spanish="Lun-Vie: 9 a. m. – 6 p. m."
+                />
+              </li>
+              <li>
+                <LocalizedText
+                  english="Saturday: 9 AM – 4 PM"
+                  spanish="Sábado: 9 a. m. – 4 p. m."
+                />
+              </li>
+              <li>
+                <LocalizedText
+                  english="Sunday: Closed"
+                  spanish="Domingo: Cerrado"
+                />
+              </li>
             </ul>
           </div>
         </section>
 
         <section
-          aria-label="Request a carpentry quote"
+          aria-labelledby="quote-heading"
           className="self-start border border-white/10 bg-[#202020] p-5 sm:p-8 lg:p-10"
         >
           <div className="mb-7">
             <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#C5A262]">
-              Start Your Project
+              <LocalizedText english="Start Your Project" spanish="Inicie Su Proyecto" />
             </p>
-            <h2 className="mt-2 text-2xl font-black uppercase tracking-tight sm:text-3xl">
-              Request A Quote
+            <h2
+              id="quote-heading"
+              className="mt-2 text-2xl font-black uppercase tracking-tight sm:text-3xl"
+            >
+              <LocalizedText
+                english="Request A Quote"
+                spanish="Solicite una Cotización"
+              />
             </h2>
           </div>
           <ContactForm />

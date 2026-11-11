@@ -6,12 +6,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Menu, X, Phone } from "lucide-react";
 import { siteConfig } from "@/src/config/site";
+import { useLanguage } from "./LanguageProvider";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState<"EN" | "ES">("EN");
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { language, setLanguage } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -39,10 +40,13 @@ export default function Navbar() {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { name: "SERVICES", href: "/services" },
-    { name: "GALLERY", href: "/gallery" },
-    { name: "CAPABILITY STATEMENT", href: "/capability-statement" },
-    { name: "CONTACT", href: "/contact" },
+    { name: language === "es" ? "SERVICIOS" : "SERVICES", href: "/services" },
+    { name: language === "es" ? "GALERÍA" : "GALLERY", href: "/gallery" },
+    {
+      name: language === "es" ? "PERFIL DE LA EMPRESA" : "CAPABILITY STATEMENT",
+      href: "/capability-statement",
+    },
+    { name: language === "es" ? "CONTACTO" : "CONTACT", href: "/contact" },
   ];
 
   const header = (
@@ -101,10 +105,10 @@ export default function Navbar() {
             <button
               onClick={() => setLangDropdownOpen(!langDropdownOpen)}
               className="flex items-center gap-2 bg-[#333333]/90 hover:bg-[#444444] text-white px-3 py-1.5 rounded-full border border-white/10 transition-colors text-xs font-semibold"
-              aria-label="Select language"
+              aria-label={language === "es" ? "Seleccionar idioma" : "Select language"}
               aria-expanded={langDropdownOpen}
             >
-              {currentLang === "EN" ? (
+              {language === "en" ? (
                 <span className="w-5 h-3.5 flex items-center justify-center overflow-hidden rounded-[2px] shadow-sm">
                   {/* US Flag SVG */}
                   <svg
@@ -176,11 +180,11 @@ export default function Navbar() {
               <div className="absolute right-0 mt-2 w-32 bg-[#222222] border border-white/10 rounded-xl shadow-2xl py-1 text-xs z-50 overflow-hidden">
                 <button
                   onClick={() => {
-                    setCurrentLang("EN");
+                    setLanguage("en");
                     setLangDropdownOpen(false);
                   }}
                   className={`w-full flex items-center gap-2.5 px-3 py-2 text-left hover:bg-white/10 transition-colors ${
-                    currentLang === "EN" ? "text-white font-bold" : "text-white/70"
+                    language === "en" ? "text-white font-bold" : "text-white/70"
                   }`}
                 >
                   <span className="w-4 h-3 rounded-xs overflow-hidden inline-block bg-red-600">
@@ -198,11 +202,11 @@ export default function Navbar() {
                 </button>
                 <button
                   onClick={() => {
-                    setCurrentLang("ES");
+                    setLanguage("es");
                     setLangDropdownOpen(false);
                   }}
                   className={`w-full flex items-center gap-2.5 px-3 py-2 text-left hover:bg-white/10 transition-colors ${
-                    currentLang === "ES" ? "text-white font-bold" : "text-white/70"
+                    language === "es" ? "text-white font-bold" : "text-white/70"
                   }`}
                 >
                   <span className="w-4 h-3 rounded-xs overflow-hidden inline-block">
@@ -228,7 +232,7 @@ export default function Navbar() {
                 ? "border-[#181818]/60 text-[#181818] hover:border-white hover:text-white"
                 : "border-white/60 text-white hover:border-[#C5A262] hover:text-[#C5A262]"
             }`}
-            aria-label="Call Now"
+            aria-label={language === "es" ? "Llamar ahora" : "Call Now"}
           >
             <Phone className="w-4 h-4" />
           </Link>
@@ -240,7 +244,15 @@ export default function Navbar() {
                 ? "text-[#181818] hover:text-black"
                 : "text-white hover:text-white/80"
             }`}
-            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-label={
+              language === "es"
+                ? mobileMenuOpen
+                  ? "Cerrar menú de navegación"
+                  : "Abrir menú de navegación"
+                : mobileMenuOpen
+                  ? "Close navigation menu"
+                  : "Open navigation menu"
+            }
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-navigation"
           >
@@ -251,7 +263,7 @@ export default function Navbar() {
 
       <button
         type="button"
-        aria-label="Close navigation menu"
+        aria-label={language === "es" ? "Cerrar menú de navegación" : "Close navigation menu"}
         tabIndex={mobileMenuOpen ? 0 : -1}
         aria-hidden={!mobileMenuOpen}
         onClick={() => setMobileMenuOpen(false)}
@@ -261,7 +273,7 @@ export default function Navbar() {
       />
       <aside
         id="mobile-navigation"
-        aria-label="Mobile navigation"
+        aria-label={language === "es" ? "Navegación móvil" : "Mobile navigation"}
         aria-hidden={!mobileMenuOpen}
         inert={!mobileMenuOpen}
         className={`fixed inset-y-0 left-0 z-[61] flex w-[min(85vw,360px)] flex-col overflow-y-auto border-r border-white/10 bg-[#181818] px-6 py-6 shadow-2xl transition-transform duration-300 ease-in-out motion-reduce:transition-none lg:hidden ${
@@ -275,7 +287,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(false)}
-            aria-label="Close navigation menu"
+            aria-label={language === "es" ? "Cerrar menú de navegación" : "Close navigation menu"}
             className="rounded-full p-2 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
           >
             <X className="h-5 w-5" />
@@ -299,15 +311,15 @@ export default function Navbar() {
             onClick={() => setMobileMenuOpen(false)}
             className="w-full rounded-full border-2 border-white/80 py-2.5 text-center text-xs font-bold tracking-widest text-white transition-colors duration-200 hover:border-[#C5A262] hover:text-[#C5A262]"
           >
-            CALL NOW
+            {language === "es" ? "LLAMAR AHORA" : "CALL NOW"}
           </Link>
           <div className="flex items-center justify-between pt-2 text-xs text-white/70">
-            <span>Language:</span>
+            <span>{language === "es" ? "Idioma:" : "Language:"}</span>
             <button
-              onClick={() => setCurrentLang(currentLang === "EN" ? "ES" : "EN")}
+              onClick={() => setLanguage(language === "en" ? "es" : "en")}
               className="rounded border border-white/10 bg-[#2a2a2a] px-3 py-1 font-bold text-white"
             >
-              {currentLang === "EN" ? "🇺🇸 English" : "🇲🇽 Español"}
+              {language === "en" ? "🇺🇸 English" : "🇲🇽 Español"}
             </button>
           </div>
         </div>

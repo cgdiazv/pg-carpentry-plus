@@ -1,26 +1,39 @@
+"use client";
+
 import Image from "next/image";
+import { useLanguage } from "./LanguageProvider";
 
 export default function Craftsmanship() {
+  const { language } = useLanguage();
+  const isSpanish = language === "es";
   const items = [
     {
       title: "CUSTOM BUILT-INS",
+      spanishTitle: "MUEBLES EMPOTRADOS",
       image: "/custom-built-ins.webp",
       alt: "Custom built-in entertainment center and cabinetry",
+      spanishAlt: "Centro de entretenimiento y gabinetes empotrados a medida",
     },
     {
       title: "FEATURE WALLS",
+      spanishTitle: "PAREDES DECORATIVAS",
       image: "/feature-walls.webp",
       alt: "Geometric decorative accent wall molding in luxury living room",
+      spanishAlt: "Molduras geométricas decorativas en una sala de lujo",
     },
     {
       title: "LUXURY TRIM",
+      spanishTitle: "MOLDURAS DE LUJO",
       image: "/luxury-trim.webp",
       alt: "Elegant hallway with architectural wainscoting and luxury trim",
+      spanishAlt: "Pasillo elegante con revestimientos y molduras arquitectónicas",
     },
     {
       title: "CEILING BEAMS",
+      spanishTitle: "VIGAS DE TECHO",
       image: "/ceiling-beams.webp",
       alt: "Rustic vaulted ceiling with natural wood exposed beams",
+      spanishAlt: "Techo abovedado rústico con vigas de madera natural expuestas",
     },
   ];
 
@@ -30,10 +43,10 @@ export default function Craftsmanship() {
         {/* Section Header */}
         <div className="text-center mb-10 sm:mb-14 md:mb-16">
           <p className="text-xs sm:text-sm font-semibold tracking-wide text-[#C5A262] mb-1.5 sm:mb-2">
-            What We Offer
+            {isSpanish ? "Lo Que Ofrecemos" : "What We Offer"}
           </p>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-white">
-            CUSTOM CRAFTSMANSHIP
+            {isSpanish ? "CARPINTERÍA A MEDIDA" : "CUSTOM CRAFTSMANSHIP"}
           </h2>
         </div>
 
@@ -45,7 +58,7 @@ export default function Craftsmanship() {
               <div className="relative aspect-[351/576] w-full overflow-hidden shadow-2xl bg-[#111111]">
                 <Image
                   src={item.image}
-                  alt={item.alt}
+                  alt={isSpanish ? item.spanishAlt : item.alt}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
@@ -56,7 +69,7 @@ export default function Craftsmanship() {
 
               {/* Title Below Image */}
               <h3 className="mt-4 sm:mt-5 text-center text-sm sm:text-base md:text-lg font-black uppercase tracking-wider text-white transition-colors duration-300 group-hover:text-[#C5A262]">
-                {item.title}
+                {isSpanish ? item.spanishTitle : item.title}
               </h3>
             </div>
           ))}

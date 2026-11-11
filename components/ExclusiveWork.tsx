@@ -3,35 +3,44 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useLanguage } from "./LanguageProvider";
 
 const galleryImages = [
   {
     src: "/img01.webp",
     alt: "Exclusive custom woodwork and luxury interior finish",
+    spanishAlt: "Carpintería exclusiva a medida y acabado interior de lujo",
   },
   {
     src: "/img02.webp",
     alt: "Architectural ceiling beams and custom carpentry design",
+    spanishAlt: "Vigas arquitectónicas de techo y diseño de carpintería a medida",
   },
   {
     src: "/img03.webp",
     alt: "Custom decorative wall paneling and trim craftsmanship",
+    spanishAlt: "Paneles decorativos y molduras elaborados a medida",
   },
   {
     src: "/img04.webp",
     alt: "Bespoke built-in cabinetry and interior transformations",
+    spanishAlt: "Gabinetes empotrados a medida y renovación de interiores",
   },
   {
     src: "/img05.webp",
     alt: "Master suite custom woodwork and modern trim installation",
+    spanishAlt: "Carpintería a medida e instalación de molduras modernas en una suite",
   },
   {
     src: "/img06.webp",
     alt: "Precision finish carpentry and architectural detailing",
+    spanishAlt: "Carpintería de acabado precisa y detalles arquitectónicos",
   },
 ];
 
 export default function ExclusiveWork() {
+  const { language } = useLanguage();
+  const isSpanish = language === "es";
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
   const [isPaused, setIsPaused] = useState(false);
@@ -87,10 +96,10 @@ export default function ExclusiveWork() {
         {/* Section Header */}
         <div className="text-center mb-10 sm:mb-14 md:mb-16">
           <p className="text-xs sm:text-sm font-semibold tracking-wide text-[#C5A262] mb-1.5 sm:mb-2">
-            Premium Qulity
+            {isSpanish ? "Calidad Superior" : "Premium Quality"}
           </p>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-white">
-            EXCLUSIVE WORKS
+            {isSpanish ? "PROYECTOS EXCLUSIVOS" : "EXCLUSIVE WORKS"}
           </h2>
         </div>
 
@@ -113,7 +122,7 @@ export default function ExclusiveWork() {
                   <div className="relative aspect-square w-full overflow-hidden shadow-2xl bg-[#111111] group cursor-pointer">
                     <Image
                       src={item.src}
-                      alt={item.alt}
+                      alt={isSpanish ? item.spanishAlt : item.alt}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
@@ -131,7 +140,7 @@ export default function ExclusiveWork() {
           {/* Navigation Controls (Left & Right Buttons) */}
           <button
             onClick={prevSlide}
-            aria-label="Previous Slide"
+            aria-label={isSpanish ? "Imagen anterior" : "Previous Slide"}
             className="absolute -left-3 sm:-left-5 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#181818]/90 border border-white/20 text-white flex items-center justify-center hover:border-[#C5A262] hover:text-[#C5A262] transition-colors duration-200 shadow-xl z-10"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -139,7 +148,7 @@ export default function ExclusiveWork() {
 
           <button
             onClick={nextSlide}
-            aria-label="Next Slide"
+            aria-label={isSpanish ? "Siguiente imagen" : "Next Slide"}
             className="absolute -right-3 sm:-right-5 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#181818]/90 border border-white/20 text-white flex items-center justify-center hover:border-[#C5A262] hover:text-[#C5A262] transition-colors duration-200 shadow-xl z-10"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -152,7 +161,9 @@ export default function ExclusiveWork() {
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              aria-label={`Go to slide ${index + 1}`}
+              aria-label={
+                isSpanish ? `Ir a la imagen ${index + 1}` : `Go to slide ${index + 1}`
+              }
               className={`h-2.5 rounded-full transition-all duration-300 ${
                 safeIndex === index
                   ? "w-8 bg-[#C5A262]"

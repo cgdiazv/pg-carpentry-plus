@@ -1,12 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Check } from "lucide-react";
+import { useLanguage } from "./LanguageProvider";
 
 export default function AboutUs({
   showHighlights = false,
 }: {
   showHighlights?: boolean;
 }) {
+  const { language } = useLanguage();
+  const isSpanish = language === "es";
   return (
     <section id="about" className="relative w-full bg-[#181818] py-14 sm:py-20 md:py-24 text-white">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -14,19 +19,19 @@ export default function AboutUs({
           {/* Left Column: Gold Information Box */}
           <div className="bg-[#C5A262] p-8 sm:p-12 md:p-16 lg:p-20 flex flex-col justify-center items-start">
             <span className="text-xs sm:text-sm font-semibold text-white/90 tracking-wide mb-3 sm:mb-4">
-              Who We Are
+              {isSpanish ? "Quiénes Somos" : "Who We Are"}
             </span>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-black uppercase text-white leading-[1.08] tracking-tight mb-5 sm:mb-6">
-              <span className="block">WE PROVIDE</span>
-              <span className="block">TAILORED</span>
-              <span className="block">DESIGNS</span>
+              <span className="block">{isSpanish ? "OFRECEMOS" : "WE PROVIDE"}</span>
+              <span className="block">{isSpanish ? "DISEÑOS" : "TAILORED"}</span>
+              <span className="block">{isSpanish ? "A SU MEDIDA" : "DESIGNS"}</span>
             </h2>
 
             <p className={`text-xs sm:text-sm md:text-[14px] leading-relaxed font-medium text-white/95 max-w-xl ${showHighlights ? "mb-5 sm:mb-6" : "mb-8 sm:mb-10"}`}>
-              Our Mission Is To Enhance Your Home Through Beautifully Crafted Carpentry Designs.
-              With A Commitment To Quality Workmanship, Integrity, And Efficient Service, We Take
-              Pride In Delivering Trim Solutions That Bring Lasting Value And Character To Every Space.
+              {isSpanish
+                ? "Nuestra misión es mejorar su hogar con diseños de carpintería cuidadosamente elaborados. Nos comprometemos con la calidad, la honestidad y un servicio eficiente para crear molduras que aporten valor y personalidad duraderos a cada espacio."
+                : "Our mission is to enhance your home through beautifully crafted carpentry designs. With a commitment to quality workmanship, integrity, and efficient service, we take pride in delivering trim solutions that bring lasting value and character to every space."}
             </p>
 
             {showHighlights && (
@@ -34,7 +39,11 @@ export default function AboutUs({
                 <div className="relative aspect-[4/3] w-full overflow-hidden">
                   <Image
                     src="/video-img-1.jpg"
-                    alt="Carpenter hand-planing wood in a workshop"
+                    alt={
+                      isSpanish
+                        ? "Carpintero cepillando madera a mano en un taller"
+                        : "Carpenter hand-planing wood in a workshop"
+                    }
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 35vw, 18vw"
                     className="object-cover"
@@ -42,10 +51,10 @@ export default function AboutUs({
                 </div>
                 <ul className="space-y-3 text-xs font-semibold leading-relaxed text-white sm:text-sm">
                   {[
-                    "Bringing Your Vision To Life",
-                    "Artistry In The Details",
-                    "Custom Interior Transformations",
-                    "Craftsmanship Without Borders",
+                    isSpanish ? "Hacemos Realidad Su Visión" : "Bringing Your Vision To Life",
+                    isSpanish ? "Arte en Cada Detalle" : "Artistry In The Details",
+                    isSpanish ? "Transformaciones de Interiores a Medida" : "Custom Interior Transformations",
+                    isSpanish ? "Artesanía Sin Límites" : "Craftsmanship Without Borders",
                   ].map((highlight) => (
                     <li key={highlight} className="flex items-center gap-2">
                       <span className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-white">
@@ -66,7 +75,7 @@ export default function AboutUs({
               href="/contact"
               className="inline-flex items-center justify-center px-8 sm:px-9 py-3.5 sm:py-4 rounded-full bg-white text-[#C5A262] hover:bg-neutral-100 hover:text-[#b18d4d] active:bg-neutral-200 font-bold text-xs sm:text-sm tracking-widest uppercase shadow-lg transition-all duration-200 transform hover:scale-[1.02]"
             >
-              GET FREE QUOTE
+              {isSpanish ? "SOLICITE UNA COTIZACIÓN" : "GET FREE QUOTE"}
             </Link>
           </div>
 
@@ -74,7 +83,11 @@ export default function AboutUs({
           <div className="relative min-h-[380px] sm:min-h-[460px] lg:min-h-[580px] w-full bg-[#222222]">
             <Image
               src="/white-brick-fireplace.webp"
-              alt="White brick fireplace with reclaimed wood mantel and custom built-in shelves"
+              alt={
+                isSpanish
+                  ? "Chimenea de ladrillo blanco con repisa de madera recuperada y estantes empotrados"
+                  : "White brick fireplace with reclaimed wood mantel and custom built-in shelves"
+              }
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover object-center"

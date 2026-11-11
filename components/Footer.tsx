@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { useLanguage } from "./LanguageProvider";
 
 export default function Footer() {
+  const { language } = useLanguage();
+  const isSpanish = language === "es";
   return (
     <footer className="relative w-full bg-[#181818] border-t border-white/10 text-white">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-12 sm:pb-16">
@@ -9,19 +14,19 @@ export default function Footer() {
           {/* Column 1: Working Hours */}
           <div>
             <h3 className="text-base sm:text-lg font-black uppercase tracking-wider text-white mb-5 sm:mb-6">
-              WORKING HOURS
+              {isSpanish ? "HORARIO" : "WORKING HOURS"}
             </h3>
             <ul className="space-y-3 text-xs sm:text-sm text-white/80 font-medium">
-              <li>Mon-Fri: 9 AM – 6 PM</li>
-              <li>Saturday: 9 AM – 4 PM</li>
-              <li>Sunday: Closed</li>
+              <li>{isSpanish ? "Lun-Vie: 9 a. m. – 6 p. m." : "Mon-Fri: 9 AM – 6 PM"}</li>
+              <li>{isSpanish ? "Sábado: 9 a. m. – 4 p. m." : "Saturday: 9 AM – 4 PM"}</li>
+              <li>{isSpanish ? "Domingo: Cerrado" : "Sunday: Closed"}</li>
             </ul>
           </div>
 
           {/* Column 2: Office */}
           <div>
             <h3 className="text-base sm:text-lg font-black uppercase tracking-wider text-white mb-5 sm:mb-6">
-              OFFICE
+              {isSpanish ? "OFICINA" : "OFFICE"}
             </h3>
             <ul className="space-y-3 text-xs sm:text-sm text-white/80 font-medium">
               <li>
@@ -54,7 +59,7 @@ export default function Footer() {
           {/* Column 3: Links */}
           <div>
             <h3 className="text-base sm:text-lg font-black uppercase tracking-wider text-white mb-5 sm:mb-6">
-              LINKS
+              {isSpanish ? "ENLACES" : "LINKS"}
             </h3>
             <ul className="space-y-3 text-xs sm:text-sm text-white/80 font-medium">
               <li>
@@ -62,7 +67,7 @@ export default function Footer() {
                   href="/services"
                   className="hover:text-[#C5A262] transition-colors inline-block"
                 >
-                  Services
+                  {isSpanish ? "Servicios" : "Services"}
                 </Link>
               </li>
               <li>
@@ -70,7 +75,7 @@ export default function Footer() {
                   href="/gallery"
                   className="hover:text-[#C5A262] transition-colors inline-block"
                 >
-                  Gallery
+                  {isSpanish ? "Galería" : "Gallery"}
                 </Link>
               </li>
               <li>
@@ -78,7 +83,7 @@ export default function Footer() {
                   href="/capability-statement"
                   className="hover:text-[#C5A262] transition-colors inline-block"
                 >
-                  Capability Statement
+                  {isSpanish ? "Perfil de la Empresa" : "Capability Statement"}
                 </Link>
               </li>
               <li>
@@ -86,7 +91,7 @@ export default function Footer() {
                   href="/contact"
                   className="hover:text-[#C5A262] transition-colors inline-block"
                 >
-                  Contact
+                  {isSpanish ? "Contacto" : "Contact"}
                 </Link>
               </li>
             </ul>
@@ -95,7 +100,7 @@ export default function Footer() {
           {/* Column 4: Follow Us */}
           <div>
             <h3 className="text-base sm:text-lg font-black uppercase tracking-wider text-white mb-5 sm:mb-6">
-              FOLLOW US
+              {isSpanish ? "SÍGANOS" : "FOLLOW US"}
             </h3>
             <div className="flex items-center gap-3">
               {/* Instagram */}
@@ -103,7 +108,7 @@ export default function Footer() {
                 href="https://www.instagram.com/pgcarpentryplus"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Follow us on Instagram"
+                aria-label={isSpanish ? "Síganos en Instagram" : "Follow us on Instagram"}
                 className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-[#C5A262] hover:text-white transition-all duration-200 transform hover:scale-105 shadow-md"
               >
                 <svg
@@ -120,7 +125,7 @@ export default function Footer() {
                 href="https://www.tiktok.com/@pgcarpentry"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Follow us on TikTok"
+                aria-label={isSpanish ? "Síganos en TikTok" : "Follow us on TikTok"}
                 className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-[#C5A262] hover:text-white transition-all duration-200 transform hover:scale-105 shadow-md"
               >
                 <svg
