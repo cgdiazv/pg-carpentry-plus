@@ -42,10 +42,10 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:Info@Pgcarpentryplus.Com"
+                  href="mailto:info@pgcarpentryplus.com"
                   className="hover:text-[#C5A262] transition-colors inline-block"
                 >
-                  Info@Pgcarpentryplus.Com
+                  info@pgcarpentryplus.com
                 </a>
               </li>
             </ul>
@@ -59,7 +59,7 @@ export default function Footer() {
             <ul className="space-y-3 text-xs sm:text-sm text-white/80 font-medium">
               <li>
                 <Link
-                  href="/#services"
+                  href="/services"
                   className="hover:text-[#C5A262] transition-colors inline-block"
                 >
                   Services
@@ -67,7 +67,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/#gallery"
+                  href="/gallery"
                   className="hover:text-[#C5A262] transition-colors inline-block"
                 >
                   Gallery
@@ -83,7 +83,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/#contact"
+                  href="/contact"
                   className="hover:text-[#C5A262] transition-colors inline-block"
                 >
                   Contact

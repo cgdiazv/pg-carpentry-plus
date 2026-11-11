@@ -38,10 +38,10 @@ export default function Navbar() {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { name: "SERVICES", href: "/#services" },
-    { name: "GALLERY", href: "/#gallery" },
+    { name: "SERVICES", href: "/services" },
+    { name: "GALLERY", href: "/gallery" },
     { name: "CAPABILITY STATEMENT", href: "/capability-statement" },
-    { name: "CONTACT", href: "/#contact" },
+    { name: "CONTACT", href: "/contact" },
   ];
 
   return (

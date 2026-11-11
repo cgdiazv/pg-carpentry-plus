@@ -1,7 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Check } from "lucide-react";
 
-export default function AboutUs() {
+export default function AboutUs({
+  showHighlights = false,
+}: {
+  showHighlights?: boolean;
+}) {
   return (
     <section id="about" className="relative w-full bg-[#181818] py-14 sm:py-20 md:py-24 text-white">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,11 +23,44 @@ export default function AboutUs() {
               <span className="block">DESIGNS</span>
             </h2>
 
-            <p className="text-xs sm:text-sm md:text-[14px] leading-relaxed font-medium text-white/95 mb-8 sm:mb-10 max-w-xl">
+            <p className={`text-xs sm:text-sm md:text-[14px] leading-relaxed font-medium text-white/95 max-w-xl ${showHighlights ? "mb-5 sm:mb-6" : "mb-8 sm:mb-10"}`}>
               Our Mission Is To Enhance Your Home Through Beautifully Crafted Carpentry Designs.
               With A Commitment To Quality Workmanship, Integrity, And Efficient Service, We Take
               Pride In Delivering Trim Solutions That Bring Lasting Value And Character To Every Space.
             </p>
+
+            {showHighlights && (
+              <div className="mb-8 grid w-full grid-cols-1 gap-5 sm:grid-cols-[0.9fr_1.1fr] sm:items-center sm:gap-4 lg:mb-10">
+                <div className="relative aspect-[4/3] w-full overflow-hidden">
+                  <Image
+                    src="/video-img-1.jpg"
+                    alt="Carpenter hand-planing wood in a workshop"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 35vw, 18vw"
+                    className="object-cover"
+                  />
+                </div>
+                <ul className="space-y-3 text-xs font-semibold leading-relaxed text-white sm:text-sm">
+                  {[
+                    "Bringing Your Vision To Life",
+                    "Artistry In The Details",
+                    "Custom Interior Transformations",
+                    "Craftsmanship Without Borders",
+                  ].map((highlight) => (
+                    <li key={highlight} className="flex items-center gap-2">
+                      <span className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-white">
+                        <Check
+                          className="h-2.5 w-2.5 text-[#C5A262]"
+                          strokeWidth={3}
+                          aria-hidden="true"
+                        />
+                      </span>
+                      {highlight}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             <Link
               href="#quote"

@@ -4,9 +4,9 @@ export const siteConfig = {
   url: "https://www.pgcarpentryplus.com",
   ogImage: "https://www.pgcarpentryplus.com/og.jpg",
   contact: {
-    email: "contact@pgcarpentryplus.com",
-    phone: "(832) 555-0199", // Update with official phone
-    address: "Houston, TX",
+    email: "info@pgcarpentryplus.com",
+    phone: "(972) 251-3979",
+    address: "Fort Worth, TX",
   },
   links: {
     facebook: "https://facebook.com",
