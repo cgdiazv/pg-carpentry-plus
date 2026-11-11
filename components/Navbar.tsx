@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Menu, X, Phone } from "lucide-react";
@@ -44,12 +45,11 @@ export default function Navbar() {
     { name: "CONTACT", href: "/contact" },
   ];
 
-  return (
-    <div className="relative z-50 h-[76px] w-full sm:h-[84px]">
+  const header = (
     <header
       className={`w-full transition-colors duration-300 ${
         isScrolled
-          ? "fixed left-0 right-0 top-0 z-50 bg-[#C5A262] shadow-lg"
+          ? "fixed left-0 right-0 top-0 z-[9999] bg-[#C5A262] shadow-lg"
           : "relative z-30 bg-transparent"
       }`}
     >
@@ -313,6 +313,13 @@ export default function Navbar() {
         </div>
       </aside>
     </header>
+  );
+
+  return (
+    <div className="relative z-50 h-[76px] w-full sm:h-[84px]">
+      {isScrolled && typeof document !== "undefined"
+        ? createPortal(header, document.body)
+        : header}
     </div>
   );
 }
